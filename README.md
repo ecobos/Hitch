@@ -4,8 +4,8 @@ Hitch App Development Repo
 
 ###TODO:
 + Import reusable code from last app
-+ Structure app packages
 + Create firebase account
++ Define JSON data contracts (json formats)
 
 
 ## Short term goals
