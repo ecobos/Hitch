@@ -7,6 +7,10 @@ Hitch App Development Repo
 + Create firebase account
 + Define JSON data contracts (json formats)
 
+###Feautures:
++ Add ability to post special trips when a hitcher needs a driver (specify the starting loc and dest. as well as pay). Drivers will be able to see this through a feed in case they wish to make more money.
++ Add mockup functionalities https://popapp.in/w/projects/570b265a1f35087b5b199a76/preview
+
 
 ## Short term goals
 + Try out Firebase for a few weeks!
