@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
-
+        <!-- TODO: hide toolbar when scrolling map -->
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -24,11 +24,40 @@
     <include layout="@layout/content_main" />
 
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/request_ride"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginRight="@dimen/fab_margin"
+        app:elevation="6dp"
+        app:pressedTranslationZ="12dp"
+        android:visibility="invisible"
+        android:layout_marginBottom="160dp"
+        android:src="@android:drawable/ic_menu_share" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/offer_ride"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginRight="@dimen/fab_margin"
+        android:visibility="invisible"
+        android:layout_marginBottom="90dp"
+        app:pressedTranslationZ="12dp"
+        app:elevation="6dp"
+        android:src="@android:drawable/ic_input_add" />
+
+    <!-- TODO: hide FAB when scrolling map -->
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_dialog_email" />
+        app:pressedTranslationZ="12dp"
+        app:elevation="6dp"
+        app:layout_anchor="@+id/map"
+        app:layout_anchorGravity="bottom|end"
+        android:src="@android:drawable/ic_input_add" />
 
 </android.support.design.widget.CoordinatorLayout>
