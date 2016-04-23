@@ -18,6 +18,10 @@ public class User {
     private State state;
     private Timestamp memberSinceDate;
 
+    /**
+     * Needed by Firebase to deserialize User objects
+     */
+    public User() {}
     // TODO consider making constructorless depending on how user is retrieved
     // TODO consider jackson mapping if all json
     public User(String userId, String name, String lastName, String gender, Integer age, String city, State state, Timestamp memberSinceDate) {
