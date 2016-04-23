@@ -62,9 +62,11 @@ public class Vehicle {
         this.year = validateYear(year) ? year:null;
     }
 
+    // TODO some vehicles are released a year before their actual year
+    // example 2017 model released in Dec 2016
     private boolean validateYear(Integer year) {
         Calendar calendar = Calendar.getInstance();
         Integer currentYear = calendar.get(Calendar.YEAR);
-        return currentYear.equals(year);
+        return year <= currentYear;
     }
 }
