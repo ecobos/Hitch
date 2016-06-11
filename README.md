@@ -39,3 +39,16 @@ Hitch App Development Repo
 + 06/01/16 Test JSON Cloud environment
 + 06/15/16 Parse-like notification system setup
 + 07/01/16 Working in-app messaging system
+
+## Activities
++ Main Activiy (includes full screen map)
++ Ride History (part of hamburger menu)
++ Your Account (hamburger menu; user rating for now)
++ Provide a Ride
++ Request a Ride
++ Search (using Google Places API)
++ Flag User
+
+## Misc
++ Create icons or simply user system icons
+
