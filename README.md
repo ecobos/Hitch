@@ -48,6 +48,8 @@ Hitch App Development Repo
 + Request a Ride
 + Search (using Google Places API)
 + Flag User
++ Add a vehicle activity
++ Rides I'm Offering
 
 ## Misc
 + Create icons or simply user system icons
