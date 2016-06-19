@@ -9,6 +9,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -51,6 +52,7 @@ public class MainMenu extends AppCompatActivity
     private Boolean isFabOpen = false;
     private FloatingActionButton fab, requestFab, offerFab, searchFab;
     private Animation fab_open, fab_close, rotate_forward, rotate_backward;
+    private CoordinatorLayout coordinatorLayout;
 
     private static final String TAG = MainMenu.class.getName();
 
@@ -98,6 +100,9 @@ public class MainMenu extends AppCompatActivity
         rotate_backward = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_backward);
         rotate_forward = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_forward);
 
+        // get coordinator layout ref
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator_layout);
+
         fab.setOnClickListener(this);
         offerFab.setOnClickListener(this);
         requestFab.setOnClickListener(this);
@@ -129,7 +134,8 @@ public class MainMenu extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.chat) {
+            Snackbar.make(coordinatorLayout, "Chatting activity", Snackbar.LENGTH_SHORT).show();
             return true;
         }
 
@@ -254,13 +260,17 @@ public class MainMenu extends AppCompatActivity
                 animateFAB();
                 break;
             case R.id.request_ride:
-                Toast.makeText(this, "Requesting ride", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "Requesting ride", Toast.LENGTH_SHORT).show();
+                Snackbar.make(coordinatorLayout, "Requesting ride", Snackbar.LENGTH_SHORT).show();
+
                 break;
             case R.id.offer_ride:
-                Toast.makeText(this, "Offering ride", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "Offering ride", Toast.LENGTH_SHORT).show();
+                Snackbar.make(coordinatorLayout, "Offering ride", Snackbar.LENGTH_SHORT).show();
                 break;
             case R.id.search_ride:
-                Toast.makeText(this, "Searching for a ride", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "Searching for a ride", Toast.LENGTH_SHORT).show();
+                Snackbar.make(coordinatorLayout, "Searching for a ride", Snackbar.LENGTH_SHORT).show();
                 break;
         }
     }
