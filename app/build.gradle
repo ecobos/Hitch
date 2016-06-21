@@ -37,6 +37,7 @@ dependencies {
     // firebase
     compile 'com.firebase:firebase-client-android:2.5.2+'
 
-    // google maps
-    compile 'com.google.android.gms:play-services-maps:8.4.0'
+    // google maps and places api
+    // TODO: consider only importing maps and places dependencies
+    compile 'com.google.android.gms:play-services:8.4.0'
 }
