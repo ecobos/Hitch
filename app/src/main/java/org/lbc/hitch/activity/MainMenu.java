@@ -3,6 +3,7 @@ package org.lbc.hitch.activity;
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
@@ -28,6 +29,11 @@ import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
 import com.firebase.client.Firebase;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -44,7 +50,8 @@ public class MainMenu extends AppCompatActivity
 
     private Firebase dbRef;
     private final float mapZoom = 9;
-    private final int MAPS_PERMISSIONS_REQUEST = 1;
+    private static final int MAPS_PERMISSIONS_REQUEST = 1;
+    private static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 2;
     private GoogleMap appMap;
     /**
      * Animations
@@ -269,9 +276,46 @@ public class MainMenu extends AppCompatActivity
                 Snackbar.make(coordinatorLayout, "Offering ride", Snackbar.LENGTH_SHORT).show();
                 break;
             case R.id.search_ride:
-                //Toast.makeText(this, "Searching for a ride", Toast.LENGTH_SHORT).show();
-                Snackbar.make(coordinatorLayout, "Searching for a ride", Snackbar.LENGTH_SHORT).show();
+                this.searchRide();
                 break;
+        }
+    }
+
+    //
+    public void searchRide() {
+        try {
+            Intent intent =
+                    new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
+                            .build(this);
+            startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
+        } catch (GooglePlayServicesRepairableException e) {
+            // Google Plays services is either not installed or not up to date. Prompt user to download latest
+            Log.e(TAG, "Google Play Services is not installed or up to date");
+            // TODO: Handle the error.
+        } catch (GooglePlayServicesNotAvailableException e) {
+            // Google Play Services not available, some sort of retry logic here maybe
+            Log.e(TAG, "Google Play Services is not reachable");
+            // TODO: Handle the error.
+        }
+    }
+
+    // A place has been received; use requestCode to track the request.
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                Place place = PlaceAutocomplete.getPlace(this, data);
+                Log.i(TAG, "Place: " + place.getName() + " " + place.getAddress() + " " + place.getLatLng());
+                Snackbar.make(coordinatorLayout, place.getName() + " " + place.getLatLng(), Snackbar.LENGTH_SHORT).show();
+            } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
+                Status status = PlaceAutocomplete.getStatus(this, data);
+                // TODO: Handle the error.
+                Log.i(TAG, status.getStatusMessage());
+
+            } else if (resultCode == RESULT_CANCELED) {
+                Log.i(TAG, "User cancelled the Google Places request");
+                // The user canceled the operation.
+            }
         }
     }
 
