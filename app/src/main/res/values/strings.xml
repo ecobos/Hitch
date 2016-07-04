@@ -6,4 +6,12 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_activity_offer_ride">Offer A Ride</string>
+
+    <!-- Form -->
+    <string name="hint_ride_date">Departure Date</string>
+    <string name="hint_ride_time">Departure Time</string>
+    <string name="hint_start_point">Starting Point</string>
+    <string name="hint_end_point">End Point</string>
+
 </resources>

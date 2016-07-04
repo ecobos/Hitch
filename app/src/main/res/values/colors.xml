@@ -31,7 +31,7 @@
     <color name="DarkOrange">#FF8C00</color>
     <color name="Coral">#FF7F50</color>
     <color name="HotPink">#FF69B4</color>
-    <color name="Tomato">#FF6347</color>
+    <color name="Tomato">#ff6347</color>
     <color name="OrangeRed">#FF4500</color>
     <color name="DeepPink">#FF1493</color>
     <color name="Fuchsia">#FF00FF</color>
@@ -123,7 +123,7 @@
     <color name="RoyalBlue">#4169E1</color>
     <color name="Turquoise">#40E0D0</color>
     <color name="MediumSeaGreen">#3CB371</color>
-    <color name="LimeGreen">#32CD32</color>
+    <color name="LimeGreen">#32cd32</color>
     <color name="DarkSlateGray">#2F4F4F</color>
     <color name="SeaGreen">#2E8B57</color>
     <color name="ForestGreen">#228B22</color>

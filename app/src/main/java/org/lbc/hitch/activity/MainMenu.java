@@ -273,7 +273,9 @@ public class MainMenu extends AppCompatActivity
                 break;
             case R.id.offer_ride:
                 //Toast.makeText(this, "Offering ride", Toast.LENGTH_SHORT).show();
-                Snackbar.make(coordinatorLayout, "Offering ride", Snackbar.LENGTH_SHORT).show();
+                Intent offerRide = new Intent(this, OfferRideActivity.class);
+                startActivity(offerRide);
+                //Snackbar.make(coordinatorLayout, "Offering ride", Snackbar.LENGTH_SHORT).show();
                 break;
             case R.id.search_ride:
                 this.searchRide();
@@ -284,9 +286,7 @@ public class MainMenu extends AppCompatActivity
     //
     public void searchRide() {
         try {
-            Intent intent =
-                    new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
-                            .build(this);
+            Intent intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN).build(this);
             startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
         } catch (GooglePlayServicesRepairableException e) {
             // Google Plays services is either not installed or not up to date. Prompt user to download latest

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="org.lbc.hitch.activity.OfferRideActivity"
+    tools:showIn="@layout/activity_offer_ride">
+
+
+    <TextView
+        android:id="@+id/ride_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/ride_detail_style"
+        android:hint="@string/hint_ride_date"
+        android:drawableStart="@drawable/ic_today"
+        android:drawableLeft="@drawable/ic_today"
+        android:padding="10dp" />
+
+    <TextView
+        android:id="@+id/ride_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/ride_detail_style"
+        android:hint="@string/hint_ride_time"
+        android:drawableLeft="@drawable/ic_time"
+        android:drawableStart="@drawable/ic_time"
+        android:padding="10dp" />
+
+    <TextView
+        android:id="@+id/ride_start_point"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/ride_detail_style"
+        android:hint="@string/hint_start_point"
+        android:drawableLeft="@drawable/ic_place"
+        android:drawableStart="@drawable/ic_place"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp" />
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_more_vert"
+        android:paddingLeft="10dp"
+        android:paddingStart="10dp"/>
+    <TextView
+        android:id="@+id/ride_end_point"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/ride_detail_style"
+        android:hint="@string/hint_end_point"
+        android:drawableLeft="@drawable/ic_pin_drop"
+        android:drawableStart="@drawable/ic_pin_drop"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+
+         />
+
+
+</LinearLayout>

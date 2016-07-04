@@ -21,4 +21,12 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <!-- Ride Detail Form Style -->
+    <style name="ride_detail_style">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:drawablePadding">10dp</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+
 </resources>
