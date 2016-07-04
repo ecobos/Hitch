@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "549271428035",
+    "firebase_url": "https://popping-inferno-8016.firebaseio.com",
+    "project_id": "popping-inferno-8016",
+    "storage_bucket": "popping-inferno-8016.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:549271428035:android:d343a44485e3ac93",
+        "android_client_info": {
+          "package_name": "org.lbc.hitch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "549271428035-virs1n7ooc8isvbd7o6vg74s47e1ok7v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_bYli_eu-lPE9q-jRNpysvDdRckr0SAM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
