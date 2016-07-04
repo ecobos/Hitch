@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -16,6 +17,9 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
+
+import com.github.jorgecastilloprz.FABProgressCircle;
+import com.github.jorgecastilloprz.listeners.FABProgressListener;
 
 import org.lbc.hitch.R;
 
@@ -38,14 +42,34 @@ public class OfferRideActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        final FABProgressCircle fabProgressCircle = (FABProgressCircle) findViewById(R.id.fabProgressCircle );
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+                fabProgressCircle.show();
+                new Handler().postDelayed(new Runnable() {
+
+                    @Override
+                    public void run() {
+
+                    }
+                }, 5000);
+                fabProgressCircle.beginFinalAnimation();
             }
         });
+
+        fabProgressCircle.attachListener(new FABProgressListener() {
+            @Override
+            public void onFABProgressAnimationEnd() {
+                Snackbar.make(fabProgressCircle, "All done -> redirect to main activity" , Snackbar.LENGTH_LONG)
+                        .setAction("Action", null)
+                        .show();
+            }
+        });
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Set default date to today's date

@@ -34,7 +34,7 @@
 
     <include layout="@layout/content_ride_details" />
 
-    <android.support.design.widget.FloatingActionButton
+    <!--<android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -42,5 +42,31 @@
         android:src="@drawable/ic_done"
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="bottom|end" />
+        -->
+
+    <com.github.jorgecastilloprz.FABProgressCircle
+        android:id="@+id/fabProgressCircle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_anchor="@id/app_bar"
+        app:layout_anchorGravity="bottom|end"
+        app:finalIcon="@drawable/ic_face"
+        android:scaleType="center"
+        >
+
+        <!-- You can change it with the fab from the library you want to use -->
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_menu_save"
+            android:layout_margin="@dimen/fab_margin"
+            app:layout_anchor="@id/app_bar"
+            app:layout_anchorGravity="bottom|end"
+            android:scaleType="center"
+            app:fabSize="normal"
+             />
+
+    </com.github.jorgecastilloprz.FABProgressCircle>
 
 </android.support.design.widget.CoordinatorLayout>

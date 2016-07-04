@@ -48,6 +48,7 @@ dependencies {
     compile 'com.google.firebase:firebase-auth:9.2.0'
     // aws s3 like storage
     compile 'com.google.firebase:firebase-storage:9.2.0'
+    compile 'com.github.jorgecastilloprz:fabprogresscircle:1.01@aar'
 }
 
 // apply project level dependency
