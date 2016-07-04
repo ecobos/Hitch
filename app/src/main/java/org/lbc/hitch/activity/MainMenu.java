@@ -10,6 +10,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -28,7 +29,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
-import com.firebase.client.Firebase;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.Status;
@@ -41,14 +41,22 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.lbc.hitch.R;
+import org.lbc.hitch.domain.Trip;
+
+import java.sql.Date;
 
 // TODO: this is now the main class
 public class MainMenu extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback, View.OnClickListener {
 
-    private Firebase dbRef;
+    private FirebaseDatabase database;
+    private DatabaseReference databaseReference;
     private final float mapZoom = 9;
     private static final int MAPS_PERMISSIONS_REQUEST = 1;
     private static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 2;
@@ -82,9 +90,9 @@ public class MainMenu extends AppCompatActivity
         // permissions
         getPermissionToAccessLocation();
 
-        // set Firebase context and DB url
-        Firebase.setAndroidContext(this);
-        dbRef = new Firebase("https://popping-inferno-8016.firebaseio.com/");
+        // get firebase instance and reference to table; make sure 'google-services.json' file is up to date
+        database = FirebaseDatabase.getInstance();
+        databaseReference = database.getReference();
 
         // get GoogleMap fragment
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
@@ -274,6 +282,7 @@ public class MainMenu extends AppCompatActivity
             case R.id.offer_ride:
                 //Toast.makeText(this, "Offering ride", Toast.LENGTH_SHORT).show();
                 Snackbar.make(coordinatorLayout, "Offering ride", Snackbar.LENGTH_SHORT).show();
+                this.testAddingTrip();
                 break;
             case R.id.search_ride:
                 this.searchRide();
@@ -344,5 +353,19 @@ public class MainMenu extends AppCompatActivity
             searchFab.setClickable(true);
             isFabOpen = true;
         }
+    }
+
+    /**
+     * TODO: remove me once we have the add a ride activity finished
+     */
+    private void testAddingTrip() {
+        Log.d(TAG, "Attempting to insert ride record");
+        final Trip trip = new Trip(1234L, "testDriver", 3, "Minneapolis", "Long Beach", "3:00AM", null, new Date(System.currentTimeMillis()));
+        databaseReference.child("trips").child(String.valueOf(trip.getTripId())).setValue(trip).addOnCompleteListener(this, new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                Log.d(TAG, trip + " was successfully written to database");
+            }
+        });
     }
 }
