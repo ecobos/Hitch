@@ -34,10 +34,21 @@ dependencies {
     testCompile 'org.mockito:mockito-core:1.10.19'
     testCompile 'junit:junit:4.12'
 
-    // firebase
-    compile 'com.firebase:firebase-client-android:2.5.2+'
-
     // google maps and places api
     // TODO: consider only importing maps and places dependencies
-    compile 'com.google.android.gms:play-services:8.4.0'
+    compile 'com.google.android.gms:play-services:9.2.0'
+    // TODO: consider adding all of them 'com.google.firebase:*'
+    // analytics
+    compile 'com.google.firebase:firebase-core:9.2.0'
+    compile 'com.google.firebase:firebase-database:9.2.0'
+    // notifications
+    compile 'com.google.firebase:firebase-messaging:9.2.0'
+    // invites/dynamic links
+    compile 'com.google.firebase:firebase-invites:9.2.0'
+    compile 'com.google.firebase:firebase-auth:9.2.0'
+    // aws s3 like storage
+    compile 'com.google.firebase:firebase-storage:9.2.0'
 }
+
+// apply project level dependency
+apply plugin: 'com.google.gms.google-services'
