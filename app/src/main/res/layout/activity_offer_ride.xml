@@ -43,30 +43,37 @@
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="bottom|end" />
         -->
-
-    <com.github.jorgecastilloprz.FABProgressCircle
-        android:id="@+id/fabProgressCircle"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="bottom|end"
-        app:finalIcon="@drawable/ic_face"
-        android:scaleType="center"
-        >
+        android:paddingRight="20dp"
+        android:paddingEnd="20dp"
+        android:clipChildren="false"
+        android:clipToPadding="false" >
 
-        <!-- You can change it with the fab from the library you want to use -->
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab"
+        <com.github.jorgecastilloprz.FABProgressCircle
+            android:id="@+id/fabProgressCircle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@android:drawable/ic_menu_save"
-            android:layout_margin="@dimen/fab_margin"
-            app:layout_anchor="@id/app_bar"
-            app:layout_anchorGravity="bottom|end"
-            android:scaleType="center"
-            app:fabSize="normal"
-             />
+            app:finalIcon="@drawable/ic_done"
+            android:scaleType="center" >
 
-    </com.github.jorgecastilloprz.FABProgressCircle>
+            <!-- You can change it with the fab from the library you want to use -->
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_menu_save"
+                android:layout_margin="@dimen/fab_margin"
+                app:fabSize="normal"
+                app:elevation="5dp" />
+
+        </com.github.jorgecastilloprz.FABProgressCircle>
+
+    </RelativeLayout>
+
 
 </android.support.design.widget.CoordinatorLayout>

@@ -4,10 +4,8 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -19,9 +17,14 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.github.jorgecastilloprz.FABProgressCircle;
-import com.github.jorgecastilloprz.listeners.FABProgressListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.lbc.hitch.R;
+import org.lbc.hitch.domain.Date;
+import org.lbc.hitch.domain.Geo;
+import org.lbc.hitch.domain.Time;
+import org.lbc.hitch.domain.Trip;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -33,6 +36,7 @@ public class OfferRideActivity extends AppCompatActivity
     private static TextView mOffer_ride_date;
     private static TextView mOffer_ride_time;
     private static Calendar mCalendar;
+    private FABProgressCircle mFabProgressCircle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -42,42 +46,14 @@ public class OfferRideActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        final FABProgressCircle fabProgressCircle = (FABProgressCircle) findViewById(R.id.fabProgressCircle );
+        mFabProgressCircle = (FABProgressCircle) findViewById(R.id.fabProgressCircle );
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-                fabProgressCircle.show();
-                new Handler().postDelayed(new Runnable() {
-
-                    @Override
-                    public void run() {
-
-                    }
-                }, 5000);
-                fabProgressCircle.beginFinalAnimation();
-            }
-        });
-
-        fabProgressCircle.attachListener(new FABProgressListener() {
-            @Override
-            public void onFABProgressAnimationEnd() {
-                Snackbar.make(fabProgressCircle, "All done -> redirect to main activity" , Snackbar.LENGTH_LONG)
-                        .setAction("Action", null)
-                        .show();
-            }
-        });
+        fab.setOnClickListener(new FABonClickListener());
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Set default date to today's date
         mOffer_ride_date = (TextView) findViewById(R.id.ride_date);
-//        SimpleDateFormat dateFormat = new SimpleDateFormat("E, MMM dd yyyy", Locale.US);
-//        String currentDate = dateFormat.format(new Date());
-//        mOffer_ride_date.setText(currentDate);
-
         mOffer_ride_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,9 +65,6 @@ public class OfferRideActivity extends AppCompatActivity
 
         // Set default time to current time
         mOffer_ride_time = (TextView) findViewById(R.id.ride_time);
-//        SimpleDateFormat sdfTime = new SimpleDateFormat("h:mm a z", Locale.US);
-//        String currentTime = sdfTime.format(new Date());
-//        mOffer_ride_time.setText(currentTime);
         mOffer_ride_time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,6 +74,25 @@ public class OfferRideActivity extends AppCompatActivity
         });
     }
 
+    private class FABonClickListener implements View.OnClickListener
+    {
+        @Override
+        public void onClick(View view) {
+            mFabProgressCircle.show();
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference myRef = database.getReference("Trips");
+
+            Geo startpoint = new Geo("342","-72");
+            Geo endpoint = new Geo("543", "-43");
+            Time departTime = new Time("04", "15");
+            Date date = new Date("2","12", "1990");
+            Trip offer = new Trip("123",startpoint, endpoint, departTime, "nope", date);
+            myRef.setValue(offer);
+
+
+            mFabProgressCircle.beginFinalAnimation();
+        }
+    }
     /**
      * Date picker fragment is a dialog that allows the user to set the date of the ride
      */
@@ -122,7 +114,7 @@ public class OfferRideActivity extends AppCompatActivity
          * Sets the date in the textView and in Parse
          */
         public void onDateSet(DatePicker view, int year, int month, int day) {
-            month = month++; // adjust for zero-based numbering
+            ++month; // adjust for zero-based numbering
             String date = month + "/" + day + "/" + year;
 
             Calendar c = Calendar.getInstance();
@@ -154,6 +146,7 @@ public class OfferRideActivity extends AppCompatActivity
          * Sets the time in the textView and in Parse
          */
         public void onTimeSet(TimePicker view, int hour, int minute) {
+            Log.d("time set", "onTimeSet: "+ hour + ":" + minute);
             String time, period;
             if (hour > 12) {
                 hour -= 12;
@@ -164,7 +157,7 @@ public class OfferRideActivity extends AppCompatActivity
             }
             time = hour + ":" + ((minute < 10)? "0" + minute:minute) + " " + period;
             mOffer_ride_time.setText(time);
-            Log.d("time set", "onTimeSet: "+ hour + ":" + minute);
+
         }
     }
 

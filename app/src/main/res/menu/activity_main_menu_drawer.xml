@@ -30,5 +30,9 @@
                 android:title="Send" />
         </menu>
     </item>
+    <item
+        android:id="@+id/logout_button"
+        android:icon="@drawable/ic_exit_to_app"
+        android:title="Logout" />
 
 </menu>

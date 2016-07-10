@@ -33,11 +33,11 @@ public class TripTest {
 
     @Before
     public void setup() {
-        when(mockTrip.getFinalDestination()).thenReturn(finalDest);
-        when(mockTrip.getDepartingDestination()).thenReturn(departingDest);
-        when(mockTrip.getDriverByID()).thenReturn(userID);
+        when(mockTrip.getEnd_point()).thenReturn(finalDest);
+        when(mockTrip.getStart_point()).thenReturn(departingDest);
+        when(mockTrip.getDriverId()).thenReturn(userID);
         when(mockTrip.getCancellationTime()).thenReturn(time);
-        when(mockTrip.getDepartingTime()).thenReturn(time);
+        when(mockTrip.getDeparting_time()).thenReturn(time);
     }
 
     /**
@@ -46,20 +46,20 @@ public class TripTest {
      */
     @Test
     public void testMockedTrip() {
-        assertEquals("Final destination does not match", finalDest, mockTrip.getFinalDestination());
-        assertEquals("Departing destination does not match", departingDest, mockTrip.getDepartingDestination());
-        assertEquals("Driver Id does not match", userID, mockTrip.getDriverByID());
+        assertEquals("Final destination does not match", finalDest, mockTrip.getEnd_point());
+        assertEquals("Departing destination does not match", departingDest, mockTrip.getStart_point());
+        assertEquals("Driver Id does not match", userID, mockTrip.getDriverId());
         assertEquals("Cancellation time is not a string", time, mockTrip.getCancellationTime());
-        assertEquals("Departing time is not a string", time, mockTrip.getDepartingTime());
+        assertEquals("Departing time is not a string", time, mockTrip.getDeparting_time());
     }
 
     @Test
     public void testStub() {
-        trip = new Trip(userID, 10, departingDest, finalDest, time, null);
-        assertEquals("Driver Id does not match", userID, trip.getDriverByID());
-        assertEquals("Departing dest does not match", departingDest, trip.getDepartingDestination());
-        assertEquals("Final dest does not match", finalDest, trip.getFinalDestination());
-        assertEquals("Departing time does not match", time, trip.getDepartingTime());
+        trip = new Trip(2,userID, 10, departingDest, finalDest, time, null, null);
+        assertEquals("Driver Id does not match", userID, trip.getDriverId());
+        assertEquals("Departing dest does not match", departingDest, trip.getStart_point());
+        assertEquals("Final dest does not match", finalDest, trip.getEnd_point());
+        assertEquals("Departing time does not match", time, trip.getDeparting_time());
         assertNull("Cancellation time should be null for new trip", trip.getCancellationTime());
 
     }

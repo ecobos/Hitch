@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
+    compileSdkVersion 24
     buildToolsVersion "23.0.1"
 
     defaultConfig {
         applicationId "org.lbc.hitch"
-        minSdkVersion 14
+        minSdkVersion 15
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -25,30 +25,32 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:23.1.1'
-    compile 'com.android.support:design:23.1.1'
     // version 23 for now
-    compile 'com.android.support:cardview-v7:23.0.+'
-    compile 'com.android.support:recyclerview-v7:23.0.+'
     // testing frameworks
     testCompile 'org.mockito:mockito-core:1.10.19'
     testCompile 'junit:junit:4.12'
 
     // google maps and places api
     // TODO: consider only importing maps and places dependencies
-    compile 'com.google.android.gms:play-services:9.2.0'
     // TODO: consider adding all of them 'com.google.firebase:*'
     // analytics
+    // notifications
+    // invites/dynamic links
+    // aws s3 like storage
+    compile 'com.android.support:appcompat-v7:24.0.0'
+    compile 'com.android.support:design:24.0.0'
+    compile 'com.android.support:cardview-v7:24.0.0'
+    compile 'com.android.support:recyclerview-v7:24.0.0'
+    compile 'com.facebook.android:facebook-android-sdk:[4,5)'
+    compile 'com.google.android.gms:play-services:9.2.0'
     compile 'com.google.firebase:firebase-core:9.2.0'
     compile 'com.google.firebase:firebase-database:9.2.0'
-    // notifications
     compile 'com.google.firebase:firebase-messaging:9.2.0'
-    // invites/dynamic links
     compile 'com.google.firebase:firebase-invites:9.2.0'
     compile 'com.google.firebase:firebase-auth:9.2.0'
-    // aws s3 like storage
     compile 'com.google.firebase:firebase-storage:9.2.0'
     compile 'com.github.jorgecastilloprz:fabprogresscircle:1.01@aar'
+    compile 'com.android.support:support-v4:24.0.0'
 }
 
 // apply project level dependency

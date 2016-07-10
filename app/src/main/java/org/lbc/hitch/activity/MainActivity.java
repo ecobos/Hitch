@@ -10,25 +10,27 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
-import android.util.Log;
-import android.view.View;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginManager;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.Status;
@@ -41,18 +43,14 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import org.lbc.hitch.R;
-import org.lbc.hitch.domain.Trip;
-
-import java.sql.Date;
 
 // TODO: this is now the main class
-public class MainMenu extends AppCompatActivity
+public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback, View.OnClickListener {
 
     private FirebaseDatabase database;
@@ -69,7 +67,7 @@ public class MainMenu extends AppCompatActivity
     private Animation fab_open, fab_close, rotate_forward, rotate_backward;
     private CoordinatorLayout coordinatorLayout;
 
-    private static final String TAG = MainMenu.class.getName();
+    private static final String TAG = MainActivity.class.getName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +75,11 @@ public class MainMenu extends AppCompatActivity
         setContentView(R.layout.activity_main_menu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        //App Events let you measure installs on your mobile app ads, create high value audiences
+        // for targeting, and view analytics including user demographics. To automatically log app activation events
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -160,21 +163,20 @@ public class MainMenu extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
 
-        if (id == R.id.ride_history) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.ride_history) {
-
-        } else if (id == R.id.nav_view) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        switch (item.getItemId()){
+            case R.id.ride_history:
+                break;
+            case R.id.nav_gallery:
+                break;
+            case R.id.nav_view:
+                break;
+            case R.id.nav_share:
+                break;
+            case R.id.nav_send:
+                break;
+            case R.id.logout_button:
+                doLogout();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -182,6 +184,14 @@ public class MainMenu extends AppCompatActivity
         return true;
     }
 
+    private void doLogout()
+    {
+        FirebaseAuth.getInstance().signOut();
+        LoginManager.getInstance().logOut();
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
     // TODO: get user location and zoom into map
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -206,14 +216,15 @@ public class MainMenu extends AppCompatActivity
         criteria.setAccuracy(Criteria.ACCURACY_FINE);
 
         String provider = LocationManager.GPS_PROVIDER;
-        if (provider == null) {
+        if (provider.isEmpty()) {
             provider = LocationManager.NETWORK_PROVIDER;
         }
 
         Location lastLoc = locManager.getLastKnownLocation(provider);
-        LatLng userPosition = new LatLng(lastLoc.getLatitude(), lastLoc.getLongitude());
+
 
         if (lastLoc != null) {
+            LatLng userPosition = new LatLng(lastLoc.getLatitude(), lastLoc.getLongitude());
             CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(userPosition, mapZoom);
             googleMap.animateCamera(cameraUpdate);
         } else {
@@ -360,12 +371,12 @@ public class MainMenu extends AppCompatActivity
      */
     private void testAddingTrip() {
         Log.d(TAG, "Attempting to insert ride record");
-        final Trip trip = new Trip(1234L, "testDriver", 3, "Minneapolis", "Long Beach", "3:00AM", null, new Date(System.currentTimeMillis()));
-        databaseReference.child("trips").child(String.valueOf(trip.getTripId())).setValue(trip).addOnCompleteListener(this, new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                Log.d(TAG, trip + " was successfully written to database");
-            }
-        });
+//        final Trip trip = new Trip(1234L, "testDriver", 3, "Minneapolis", "Long Beach", "3:00AM", null, new Date(System.currentTimeMillis()));
+//        databaseReference.child("trips").child(String.valueOf(trip.getTripId())).setValue(trip).addOnCompleteListener(this, new OnCompleteListener<Void>() {
+//            @Override
+//            public void onComplete(@NonNull Task<Void> task) {
+//                Log.d(TAG, trip + " was successfully written to database");
+//            }
+//        });
     }
 }

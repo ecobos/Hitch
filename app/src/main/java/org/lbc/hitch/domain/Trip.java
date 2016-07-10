@@ -3,87 +3,69 @@ package org.lbc.hitch.domain;
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
 
-import java.io.Serializable;
-import java.sql.Date;
-
-/**
- * Created by Kelby on 11/13/2015.
- */
 
 @IgnoreExtraProperties
 public class Trip {
 
-    private long tripId;
     private String driver_id;
-    private int passengerCount;
-    private String departingDestination;
-    private String finalDestination;
-    private String departingTime;
+    private Geo start_point;
+    private Geo end_point;
+    private Time departing_time;
     private String cancellationTime;
-    private Date tripDate; // TODO: is this the date type we want
+    private Date departing_date;
 
     public Trip() {
         // Default constructor required for calls to DataSnapshot.getValue(Post.class)
     }
 
     // TODO create setter for setting cancellationTime
-    public Trip(long tripId, String driver_id, int passengerCount, String departingDestination, String finalDestination, String departingTime, String cancellationTime, Date tripDate) {
-        this.tripId = tripId;
+    public Trip( String driver_id, Geo departingDestination, Geo finalDestination, Time departingTime, String cancellationTime, Date date) {
         this.driver_id = driver_id;
-        this.passengerCount = passengerCount;
-        this.departingDestination = departingDestination;
-        this.finalDestination = finalDestination;
-        this.departingTime = departingTime;
+        this.start_point = departingDestination;
+        this.end_point = finalDestination;
+        this.departing_time = departingTime;
         this.cancellationTime = cancellationTime;
-        this.tripDate = tripDate;
+        this.departing_date = date;
     }
 
     public String getCancellationTime() {
         return cancellationTime;
     }
 
-    public long getTripId() {
-        return tripId;
-    }
-
-    public String getDriver_id() {
+    public String getDriverId() {
         return driver_id;
     }
 
-    public int getPassengerCount() {
-        return passengerCount;
+    public Geo getStart_point() {
+        return start_point;
     }
 
-    public String getDepartingDestination() {
-        return departingDestination;
+    public Geo getEnd_point() {
+        return end_point;
     }
 
-    public String getFinalDestination() {
-        return finalDestination;
+    public Time getDeparting_time() {
+        return departing_time;
     }
 
-    public String getDepartingTime() {
-        return departingTime;
-    }
-
-    public Date getTripDate() {
-        return tripDate;
+    public Date getDeparting_date() {
+        return departing_date;
     }
 
     public void setCancellationTime(String cancellationTime) {
         this.cancellationTime = cancellationTime;
     }
 
-    public void setDepartingTime(String departingTime) {
-        this.departingTime = departingTime;
+    public void setDeparting_time(Time departing_time) {
+        this.departing_time = departing_time;
     }
 
-    public void setDepartingDestination(String departingDestination) {
-        this.departingDestination = departingDestination;
+    public void setStart_point(Geo start_point) {
+        this.start_point = start_point;
     }
 
-    public void setFinalDestination(String finalDestination) {
-        this.finalDestination = finalDestination;
+    public void setEnd_point(Geo end_point) {
+        this.end_point = end_point;
     }
 
     @Exclude
@@ -91,10 +73,9 @@ public class Trip {
     public String toString() {
         return "Trip{" +
                 "driver_id='" + driver_id + '\'' +
-                ", passengerCount=" + passengerCount +
-                ", departingDestination='" + departingDestination + '\'' +
-                ", finalDestination='" + finalDestination + '\'' +
-                ", departingTime='" + departingTime + '\'' +
+                ", start_point='" + start_point + '\'' +
+                ", end_point='" + end_point + '\'' +
+                ", departing_time='" + departing_time + '\'' +
                 ", cancellationTime='" + cancellationTime + '\'' +
                 '}';
     }
